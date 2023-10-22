@@ -1,0 +1,23 @@
+hello.html = Hello world
+headings.html = Different types of heading sizes
+lists.html = Unordered and ordered lists
+image.html = Displaying images from folder
+link.html = Referencing a link or another html page
+table.html = Creating a table list with heading and datas, CSS Border (Collapse) and Padding 
+form.html = Text and Password Box with Submit Button, Radio Options, and Dropdown List
+style.html = Link and Referencing CSS file, CSS: ID (Unique element) vs Class (Multiple element in a group) 
+    styles.css = CSS sheet
+size.html = Div, Div's height and width, Padding (Space inside), Margin (Space outside)
+font.html = Using common fonts family, sizes, bold, and border.
+descendant.html = Descendant elements, parent > descendant CSS. Specifically selects specific element that is within a parent element
+attribute.html = Specific element using specified attribute: CSS element[attr="attributes"]
+hover.html = CSS button:hover {} change button's css when hovering
+responsive.html = Media queries. @media (attribute) {}
+flexbox.html = Flexbox. Wraps elements around so that the website's elements doesn't become too small to read when zoomed in.
+grid.html = grid-column-gap, grid-row-gap, grid-template-columns
+BOOTSTRAP - Coded CSS classes that's helpful for designing web dev easier.
+variables.html = 
+    variables.scss = 
+        SASS file. Usage of attributes as variables to avoid repetitions. Useful for "coding" css.
+        sass --watch variables.scss:variables.css
+        %function {} | @extend %function;
