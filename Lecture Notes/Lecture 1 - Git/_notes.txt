@@ -13,3 +13,6 @@ Branching:
 git branch = Checks the current branch
 git checkout "branch_name" = Switches to already existing branch
              -b "branch_name" = Creates and switches to a new branch
+git merge "branch_name" = Merges a branch to current branch
+Fork = Make a copy of a GitHub repo to your own repository to be able to make changes, push and pull, etc.
+Github Pages: username.github.io
