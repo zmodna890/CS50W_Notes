@@ -11,4 +11,5 @@ git reset --hard <commit hash> = Go back to specific commit.
 Branching:
 * = HEAD
 git branch = Checks the current branch
-git checkout -b "branch_name" = Switches to a new branch
+git checkout "branch_name" = Switches to already existing branch
+             -b "branch_name" = Creates and switches to a new branch
