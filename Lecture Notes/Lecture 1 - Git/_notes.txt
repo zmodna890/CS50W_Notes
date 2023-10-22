@@ -5,3 +5,11 @@ git status = Tells you what's going on in your repository. How many commit you a
 git push = Pushes the changes to online GitHub
 git commit -am "message" = git add and git commit combined. Adds all of the changes made.
 git pull = Downloads the latest version of the code that is already updated to GitHub to my local computer.
+git log = Shows log of all of the commits that have been made.
+git reset --hard <commit hash> = Go back to specific commit.
+          --hard origin/master = Go back to whatever is on GitHub.
+Branching:
+* = HEAD
+git branch = Checks the current branch
+git checkout "branch_name" = Switches to already existing branch
+             -b "branch_name" = Creates and switches to a new branch
