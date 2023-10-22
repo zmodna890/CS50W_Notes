@@ -1,0 +1,6 @@
+GIT commands:
+git add file.html = Add a file to keep track of
+git commit -m "message" = Commit/save changes and add a message of what you changed for example.
+git status = Tells you what's going on in your repository. How many commit you are ahead of your origin GitHub.
+git push = Pushes the changes to online GitHub
+git commit -am "message" = git add and git commit combined. Adds all of the changes made.
