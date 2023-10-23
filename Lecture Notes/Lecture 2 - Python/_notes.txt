@@ -1,0 +1,25 @@
+Sets = set(). Useful if unique elements and if you don't care about the order.
+Adding an element to set that already exists within the set will not add the duplicate.
+Decorator = A function that takes a function and modifies it
+    def decorator(func):
+        def wrapper():
+            Something before running the func...
+            func()
+            Something after running the func...
+        return wrapper
+
+Files:
+hello.py = Hello world!
+name.py = Takes an input from user for a name and prints "Hello, name"
+conditions.py = Takes an int input from user and prints if it's positive, negative, or zero.
+lists.py = Creates a list, appends an element to list, and sorts the list. Prints the list at the end
+loops.py = Loops through the string and print each character line by line using a for loop.
+sequences.py = An example of a tuple, a data structure that cannot be changed.
+sets.py = An example of using sets, a list of elements that are unique.
+dictionaries.py = An example of using dictionaries. Creates a dictionary, adds to the dictionary with key and value, and prints the value of its newly added key.
+functions.py = An example of a function that takes an int as input and returns its square.
+squares.py = An example of importing functions from another python file. Prints the squares of numbers 0-9 using the square function from functions.py
+decorators.py = An example of using decorators, a function that takes another functions and modifies it.
+classes.py = An example of using classes. Useful for creating methods/functions and storing values that are only available within the class object itself.
+exceptions.py = An example of using exceptions and exiting a program early with an error code. Tries to execute lines within the try statement. If there's an error, code within the except statement are ran.
+lambda.py = An example of using lambdas. Useful for simulating a function that you'll use only once.
