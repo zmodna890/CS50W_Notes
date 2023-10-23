@@ -1,0 +1,88 @@
+Django Commands:
+django-admin startproject PROJECT_NAME = Creates a Django starter file
+python manage.py runserver = Starts the Django server
+python manage.py startapp APP_NAME = Creates a Django app
+python manage.py migrate = Creates all of the default tables inside of Django's databases
+
+Starters:
+- django-admin startproject PROJECT_NAME
+- python manage.py startapp APP_NAME
+- PROJECT_NAME/settings.py: INSTALLED_APPS['newApp']
+- PROJECT_NAME/urls.py: urlpatterns += [path('app/', include("app.urls"))] = Go to app/ directory, look at urls.py, and include additional URLs
+
+App Folder:
+- Create an urls.py file in new app folder. from django.urls import path; urlpatterns[paths]
+- urls.py = Table of Contents of URLs
+- UrlPatterns:
+    - path("", views.index, name="index") = When the user is viewing the page, run the index function inside of views.py
+    - path("sepPage", views.func1, name="sepPage") = adding a /sepPage in the URL will run the func1 function
+    - path("<str:name>", views.greet, name="greet") = adding a /{name} in the URL will run the greet function
+- Views.py = Functions for HttpResponse
+- HttpResponse = Returns an HTTP Response
+- Views Functions:
+    - return HttpResponse("Text Here") = Displays a text that says "Text Here"
+    - return render(request, "name/index.html") = Renders an entire HTML file, or index.html in this case.
+        - Create a templates folder first and a name for that html's folder. Inside create a .html file or index.html for example.
+        - The full directory will be "PROJECT_NAME/APP_NAME/templates/name/index.html"
+    - def func(request, var):
+        return render(request, "hello/greet.html", {"var": var.capitalize()}) = Returns the HTML page of greet.html when /<str> is added in the URL.
+        - urls.py path("<str:var>")
+        - views.py render greet.html
+        - greet.html replace {{ var }} with var's value (Only Django feature!)
+
+Django HTML Features:
+- {{ var }} = Plugs in var's value to {{ var }}
+- {% if condition %} = If statement (Indentation is important)
+      html here
+  {% else %}
+      html here
+  {% endif %} = Signifies the end of if statement
+- {% load static %} = Loads all of the static files. Place at the beginning of the HTML file
+    - <link href="{% static 'newyear/styles.css' %}" rel="stylesheet"> = Looks in the static folder and loads in the styles.css
+        - The full directory will be "PROJECT_NAME/APP_NAME/static/name/styles.css"
+- {% for i in list %} = For loop
+      html here
+  {% endfor %} = Ends reading HTML for for loop
+- {% block NAME_HERE %}
+    - layout.html: Changes this block into copied HTML block
+    - index.html: Copies the HTML block to layout.html
+  {% endblock %} = Ends reading HTML for block
+- {% extends "name/layout.html" %} = Copies the HTML from layout.html
+    - The full directory will be "PROJECT_NAME/APP_NAME/templates/name/layout.html"
+- {% url 'name' %} = Looks inside the APP_NAME/urls.py and looks for the url that matches "name"
+    - {% url 'app_name:name' %} = This will specificly choose the name path where it matches the app_name var inside the urls.py.
+        - Create an app_name var in urls.py first
+- <form action="{% url 'app_name:name' %}" method="post"> = Submitting form data
+- {% csrf_token %} = Creates a CSRF Token via Django to validate the form data (coming from our website).
+- {% empty %} = If after the for loop, nothing happened or it's empty
+      html here
+
+Django Features:
+- Create a textbox form:
+    from django import forms
+    class NewTaskForm(forms.Form):
+        task = forms.CharField(label="New Tasks") = Textbox
+        priority = forms.IntegerField(label="Priority", min_value=1, max_value=10) = Number box
+- Get submitted form's value from user:
+    if request.method == "POST":
+        form = NewTaskForm(request.POST)
+        if form.is_valid(): # If the user inputted anything in the textbox
+            task = form.cleaned_data["task"] # Gets the form's value from task var inside the NewTaskForm class
+            # tasks.append(task)  # Adds to the global variable of the list (Bad practice)
+            request.session["tasks"] += [task] # Adds to the user's session's tasks list
+            return HttpResponseRedirect(reverse("tasks:index")) # Returns to the index.html 
+        else: # Server-side validation: Returns the same HTML form without worrying about errors caused by the any changes.
+            return render(request, "tasks/add.html", {
+                "form": form
+            })
+    # Return empty form if the request method is GET
+    return render(request, "tasks/add.html", {
+        "form": NewTaskForm()
+    })
+- Saves the user's inputted data to session:
+    if "tasks" not in request.session: # If the user has not visited the tasks page, hence there's no tasks[]
+        request.session["tasks"] = []  # Create a tasks var in user's session that is an empty list
+
+    return render(request, "tasks/index.html", {
+        "tasks": request.session["tasks"]
+    })
