@@ -1,0 +1,117 @@
+SQL COMMANDS:
+touch flights.sql
+sqlite3 flights.sql
+.mode column
+.header yes
+
+Django COMMANDS:
+python manage.py makemigrations = Based on the changes made in models.py
+python manage.py migrate = Apply the migrations and creates a sqlite database.
+python manage.py shell = Opens a shell, where you can type python commands that gets executed on the web application
+    from flights.models import flights
+    f = Flight(origin="New York", destination="London", duration=415) = Insert into table
+    f.save() = Commit
+    Flight.objects.all() = Select All
+    flight = flights.first() = Selects the first result
+    flight.delete() = Deletes the row
+    Airport.objects.filter(city="New York") = SELECT * FROM Airport WHERE city = "New York";
+    Airport.objects.get(city="New York") = Gets the result if there's only 1 result
+
+Files:
+- flights
+    - templates\flights
+        - flight.html = Displays a specific flight's information
+            - Displays the origin, destination, and duration
+            - Displays the list of passengers on the flight.
+            - An "Add Passenger" option that lets you add passengers to the list.
+        - index.html = Displays the flight's list with links that redirects to the flight's information (flight.html).
+        - layout.html = HTML Layout
+    - models.py
+        - Airport Class
+            - Used by the Flight Class. Instead of storing/displaying flight ID/code, Airport Class will store/display both code and city.
+        - Flight Class
+            - Stores the origin, destination, and duration of each flight.
+                - on_delete = models.CASCADE means when an Airport row is deleted, it'll delete all of the flight rows related to that airport row. 
+        - Passenger Class
+            - Stores the first and last name, and the flight that they're on for each passenger.
+                - Flight could be blank
+                - Flights' ManyToManyField means the passenger could have multiple flights assigned.
+    - views.py
+        - func index
+            - Renders the index.html with all of the flights listed.
+        - func flight
+            - If the user types in a flight ID in the URL, this function will run.
+            - Renders the flight.html.
+                - Displays flight information and list of passengers.
+                - Has the ability to add non-passengers to the passengers list with a dropdown using non_passengers information.
+        - func book
+            - When a passenger is submitted through the form with the dropdown for non-passengers, it will redirect to flights/id/
+            which according to urls.py run the this book func and...
+            - If the request method is POST:
+                - Get the Flight object with the flight_id (got from flights/id/book URL)
+                - Get the Passenger object that is submitted from form/dropdown.
+                - Add the passenger to the flight's list
+                - Redirect to flight ID information (flight.html not index.html)
+
+- users
+    - templates\users
+        - layout.html = HTML Layout
+        - login.html = Login screen to authenticate the user. Username and password box.
+        - user.html = Successful login page with a logout href link.
+    - views.py
+        - func index
+            - Displays the login.html if the user is not authenticated/logged in.
+            - It will display the user.html if the user is authenticated/logged in.
+        - func login_view
+            - If the request method is POST, get the user's username and password and try to authenticate.
+            - If the user exists, login using Django's authenticator, run the index func and render user.html
+            - Else, say "Invalid credentials."
+        - func logout_view
+            - Logout using Django's authenticator
+            - Redirects to login.html with the message "Logged out."
+
+Creates an SQL table
+CREATE table flights (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    origin TEXT NOT NULL,
+    destination TEXT NOT NULL,
+    duration INTEGER NOT NULL
+);
+
+PRIMARY KEY - uniquely identify
+NOT NULL - cannot be empty
+AUTOINCREMENT - autoincrement after next available ID
+
+Inserts data into table
+INSERT INTO table (
+    (col1, col2, col3)
+    VALUE (vl1, vl2, vl3)
+);
+
+SELECT * FROM table;
+* = all column
+SELECT col1, col2 FROM table;
+SELECT col1, FROM table WHERE col1 = "VALUE" AND col2 > 100;
+                            col1 IN (vl1, vl2);
+                            col1 LIKE "%a%"; =  *any*|a|*any*
+
+Updates row(s) with new values
+UPDATE table SET col1 = vl1 WHERE col2 = vl2 AND col3 = vl3;
+Deletes row(s) that matches the condition
+DELETE FROM table WHERE col1 = vl1;
+
+LIMIT - Limits how many rows to show
+ORDER BY - Ascending/descending order
+GROUP BY - Groups by values
+HAVING
+
+FOREIGN KEY - A key that references to the main table
+
+(Inner) joins two tables
+SELECT cl1, cl2, cl3
+    FROM table1 JOIN table2
+ON table2.cl1 = table1.cl1;
+
+Creates a table of content
+CREATE INDEX = TABLE OF CONTENT
+    - CREATE INDEX name_index ON table (cl1);
